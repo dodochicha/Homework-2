@@ -7,17 +7,17 @@ Provide your profitable path, the amountIn, amountOut value for each swap, and y
 
 > Solution
 > 
-tokenB->tokenA->tokenC->tokenD->tokenE->tokenB
+tokenB->tokenA->tokenE->tokenD->tokenC->tokenB
 
 swap, tokenB -> tokenA, AmountIn = 5.000000000000000000, AmountOut =  5.666666666666666  
 
-swap, tokenA -> tokenC, AmountIn = 5.666666666666666, AmountOut =  4.921052631578947 
+swap, tokenA -> tokenE, AmountIn = 5.666666666666666, AmountOut =  1.0624999999999996
 
-swap, tokenC -> tokenD, AmountIn = 4.921052631578947, AmountOut =  8.724727838258161 
+swap, tokenE -> tokenD, AmountIn = 1.0624999999999996, AmountOut =  2.4460431654676285
 
-swap, tokenD -> tokenE, AmountIn = 8.724727838258161, AmountOut = 15.52225040350472  
+swap, tokenD -> tokenC, AmountIn = 2.4460431654676285, AmountOut = 5.079681274900402
 
-swap, tokenE -> tokenB, AmountIn = 15.52225040350472, AmountOut = 20.95081599880494  
+swap, tokenC -> tokenB, AmountIn = 5.079681274900402, AmountOut = 20.140412461605976 
 
 ## Problem 2
 What is slippage in AMM, and how does Uniswap V2 address this issue? Please illustrate with a function as an example.

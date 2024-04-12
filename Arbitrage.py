@@ -31,12 +31,19 @@ def find_profitable_path(pools_, arbitrager_holdings, target_profit):
     paths = list(itertools.permutations([0, 2, 3, 4]))
     # print(paths)
     for i in range(len(paths)):
-        holdings = arbitrager_holdings
-        pools = pools_  
+        holdings = {
+            0: 0,
+            1: 5,
+            2: 0,
+            3: 0,
+            4: 0
+        }
+        pools = [[[17, 10], [11, 7], [15, 9], [21, 5]], [[36, 4], [13, 6], [25, 3]], [[30, 12], [10, 8]], [[60, 25]]] 
         paths[i] = list(paths[i])
         paths[i].append(1)
         paths[i].insert(0, 1)
         # print(paths[i])
+        # print("hold:", holdings)
         for j in range(len(paths[i])-1):
             calculate_pool(paths[i][j], paths[i][j+1], holdings, pools)
         if holdings[1] > target_profit:
@@ -54,11 +61,13 @@ def calculate_pool(token_changed, token_received, holdings, pools):
     else:
         idx = token_received - token_changed - 1
         k = pools[token_changed][idx][0]*pools[token_changed][idx][1]
-        holdings[token_received] = pools[token_changed][idx][0] - k/(pools[token_changed][idx][1]+holdings[token_changed])
-        pools[token_changed][idx][1] += holdings[token_changed]
-        pools[token_changed][idx][0] = k/pools[token_changed][idx][1]
+        holdings[token_received] = pools[token_changed][idx][1] - k/(pools[token_changed][idx][0]+holdings[token_changed])
+        pools[token_changed][idx][0] += holdings[token_changed]
+        pools[token_changed][idx][1] = k/pools[token_changed][idx][0]
         holdings[token_changed] = 0
     # print(holdings[token_received])
+    # print("pools:", pools)
+    # print('holdings:', holdings)
 
 def print_result(path, profit):
     for i in range(len(path)-1):

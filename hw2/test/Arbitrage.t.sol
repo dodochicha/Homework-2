@@ -79,30 +79,23 @@ contract Arbitrage is Test {
         /**
          * Please add your solution below
          */
-         address[] memory path = new address[](2);
+        uint256 deadline = block.timestamp + 300;
+        address[] memory path = new address[](6);
         path[0] = address(tokenB);
-        path[1] = address(tokenA); // Arbitrage path: tokenB -> tokenA
+        path[1] = address(tokenA);
+        path[2] = address(tokenE);
+        path[3] = address(tokenD);
+        path[4] = address(tokenC);
+        path[5] = address(tokenB);
 
         // Swap 5 units of tokenB for tokenA
         router.swapExactTokensForTokens(
             5 ether,
             0,
             path,
-            address(this),
-            block.timestamp
-        );
-
-        // Now, we have tokenA, let's convert it back to tokenB
-        path[0] = address(tokenA);
-        path[1] = address(tokenB);
-
-        // Perform the reverse swap
-        router.swapExactTokensForTokens(
-            tokenA.balanceOf(address(this)),
-            0,
-            path,
-            address(this),
-            block.timestamp
+            // address(this),
+            arbitrager,
+            deadline
         );
         /**
          * Please add your solution above
